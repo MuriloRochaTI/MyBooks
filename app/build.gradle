@@ -28,4 +28,7 @@ dependencies {
 
     //Biblioteca de Design
     implementation 'com.android.support:design:27.0.2'
+
+    //Biblioteca CardView
+    implementation 'com.android.support:cardview-v7:27.0.2'
 }
