@@ -49,5 +49,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Salvar"
-        android:onClick="salvarLivro"/>
+        android:textSize="20sp"
+        android:textColor="#fff"
+        android:onClick="salvarLivro"
+        android:background="#37a50e"/>
 </LinearLayout>

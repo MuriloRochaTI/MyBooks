@@ -34,20 +34,6 @@ public class MainActivity extends AppCompatActivity {
         //INSTANCIA DO BANCO DE DADOS
         myBooksDB = Room.databaseBuilder(getApplicationContext(), MyBooksDatabase.class, Utils.DATABASE_NAME).fallbackToDestructiveMigration().allowMainThreadQueries().build();
 
-        //Criando cadastro fake
-        //Livro 1
-        /*livros = new Livro[]{
-
-                new Livro(1, Utils.toByteArray(getResources(), R.drawable.pequeno_principe), "O Pequeno Principe", getString(R.string.pequeno_principe)),
-                new Livro(2, Utils.toByteArray(getResources(), R.drawable.cinquenta_tons_cinza), "Cinquenta Tons de Cinza", getString(R.string.cinquenta_tons_cinza)),
-                new Livro(3, Utils.toByteArray(getResources(), R.drawable.kotlin_android), "Kotlin com Android", getString(R.string.kotlin_android)),
-                new Livro(1, Utils.toByteArray(getResources(), R.drawable.pequeno_principe), "O Pequeno Principe", getString(R.string.pequeno_principe)),
-                new Livro(2, Utils.toByteArray(getResources(), R.drawable.cinquenta_tons_cinza), "Cinquenta Tons de Cinza", getString(R.string.cinquenta_tons_cinza)),
-                new Livro(3, Utils.toByteArray(getResources(), R.drawable.kotlin_android), "Kotlin com Android", getString(R.string.kotlin_android)),
-
-
-        };
-        */
     }
 
     @Override
@@ -125,9 +111,20 @@ public class MainActivity extends AppCompatActivity {
         root.addView(v);
     }
 
+    //CADASTRAR UM LIVRO
     public void abrirCadastro(View v){
 
         startActivity(new Intent(this, CadastroActivity.class));
+    }
+
+    //LER O LIVRO
+    public void lerLivro(View v){
+        startActivity(new Intent(this, LerLivrosActivity.class));
+    }
+
+    //ADICIONAR LIVRO AOS FAVORITOS
+    public void livroFavorito(View v){
+
     }
 
 }

@@ -23,7 +23,6 @@ public class CadastroActivity extends AppCompatActivity {
 
     EditText txtTitulo, txtDescricao;
 
-
     //VARIAVEL QUE NÃO MUDA O VALOR
     private final int COD_REQ_GALERIA = 101;
 
