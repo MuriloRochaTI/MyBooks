@@ -22,5 +22,4 @@ public interface LivroDao {
 
     @Query("SELECT * FROM livro")
     Livro [] selecionarTodos();
-
 }

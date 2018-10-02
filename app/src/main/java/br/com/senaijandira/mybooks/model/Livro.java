@@ -5,14 +5,12 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
 @Entity
-
 public class Livro {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
 
     //A imagem de capa é um array de bytes
-    //Binário
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
     private byte[] capa;
 
@@ -22,12 +20,12 @@ public class Livro {
 
     public Livro(){}
 
-    public Livro(byte[] capa, String titulo, String descricao){
+    public Livro(int id, byte[] capa, String titulo, String descricao){
+        this.id= id;
         this.capa = capa;
         this.titulo = titulo;
         this.descricao = descricao;
     }
-
 
     public int getId() {
         return id;

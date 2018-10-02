@@ -26,13 +26,13 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
-    //Biblioteca de Design
+    //Biblioteca de design
     implementation 'com.android.support:design:27.0.2'
 
     //Biblioteca CardView
     implementation 'com.android.support:cardview-v7:27.0.2'
 
-    //BIblioteca Room para acesso a banco de dados
+    //Blibioteca Room para banco de dados
     implementation 'android.arch.persistence.room:runtime:1.1.1'
     annotationProcessor 'android.arch.persistence.room:compiler:1.1.1'
 }
