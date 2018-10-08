@@ -1,6 +1,7 @@
 package br.com.senaijandira.mybooks;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -85,28 +86,42 @@ public class CadastroActivity extends AppCompatActivity {
 
     }
 
+
+
     public void salvarLivro(View view) {
 
-        byte[] capa = Utils.toByteArray(livroCapa);
-
+        Livro livro;
         String titulo = txtTitulo.getText().toString();
-
         String descricao = txtDescricao.getText().toString();
 
-        Livro livro = new Livro(0, capa, titulo, descricao);
+        if(livroCapa == null || titulo.equals("") || descricao.equals("")){
+            alert("ERRO!", "VAZIO");
 
-        //Inserir na variável estática da MainActivity
-        /*
-        int tamanhoArray = MainActivity.livros.length;
-        MainActivity.livros =
-                Arrays.copyOf(
-                        MainActivity.livros,
-                        tamanhoArray+1);
-        MainActivity.livros[tamanhoArray] = livro;
-        */
+        }else{
 
-        //Inserir no banco de dados
-        myBooksDb.daoLivro().inserir(livro);
+            byte[] capa = Utils.toByteArray(livroCapa);
 
+            titulo = txtTitulo.getText().toString();
+
+            descricao = txtDescricao.getText().toString();
+
+            livro = new Livro(0, capa, titulo, descricao);
+
+            //Inserir no banco de dados
+            myBooksDb.daoLivro().inserir(livro);
+
+        }
+
+
+
+    }
+
+    public void alert(String titulo, String msg){
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle(titulo);
+        alert.setMessage(msg);
+
+        alert.create().show();
     }
 }

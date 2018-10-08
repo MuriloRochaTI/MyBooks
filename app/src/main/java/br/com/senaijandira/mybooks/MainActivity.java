@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         lstViewLivros.setAdapter(adapter);
     }
 
+
+
     @Override
     protected void onResume() {
         super.onResume();
