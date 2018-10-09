@@ -1,10 +1,14 @@
 package br.com.senaijandira.mybooks;
 
+import android.app.AlertDialog;
 import android.arch.persistence.room.Room;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import br.com.senaijandira.mybooks.adapter.LivroAdapter;
@@ -15,6 +19,10 @@ public class MainActivity extends AppCompatActivity {
 
     //ListVew que carregará os livros
     ListView lstViewLivros;
+    Bitmap livroCapa;
+    ImageView imgLivroCapa;
+    EditText txtTitulo, txtDescricao;
+    Livro livro;
 
     public static Livro[] livros;
 
@@ -37,6 +45,12 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         lstViewLivros = findViewById(R.id.lstViewLivros);
+        imgLivroCapa = findViewById(R.id.imgLivroCapa);
+
+        txtDescricao = (EditText)findViewById(R.id.txtDescricao);
+
+        txtTitulo = (EditText)findViewById(R.id.txtTitulo);
+
 
         //Criar o adapter
         adapter = new LivroAdapter(this, myBooksDb);
@@ -68,7 +82,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void lerLivro(View v){
+
         startActivity(new Intent(this, LerLivroActivity.class));
+    }
+
+    public void editarLivro(View v){
+        startActivity(new Intent(this, EditarActivity.class));
+
+    }
+
+    public void alert(String titulo, String msg){
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle(titulo);
+        alert.setMessage(msg);
+
+        alert.create().show();
     }
 
 }

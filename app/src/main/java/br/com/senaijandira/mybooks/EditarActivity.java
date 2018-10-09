@@ -17,11 +17,12 @@ import java.io.InputStream;
 import br.com.senaijandira.mybooks.db.MyBooksDatabase;
 import br.com.senaijandira.mybooks.model.Livro;
 
-public class CadastroActivity extends AppCompatActivity {
+public class EditarActivity extends AppCompatActivity {
 
     Bitmap livroCapa;
     ImageView imgLivroCapa;
     EditText txtTitulo, txtDescricao;
+    Livro livro;
 
     private final int COD_REQ_GALERIA = 101;
 
@@ -30,18 +31,24 @@ public class CadastroActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cadastro);
+        setContentView(R.layout.activity_ler_livro);
 
         //Criando a instancia do banco de dados
-        myBooksDb = Room.databaseBuilder(getApplicationContext(),
-                MyBooksDatabase.class, Utils.DATABASE_NAME)
-                .fallbackToDestructiveMigration()
-                .allowMainThreadQueries()
-                .build();
+        myBooksDb = Room.databaseBuilder(getApplicationContext(),MyBooksDatabase.class, Utils.DATABASE_NAME).fallbackToDestructiveMigration().allowMainThreadQueries().build();
+
+        int id = getIntent().getIntExtra("Livro",0);
+
+        livro =  myBooksDb.daoLivro().getLivro(id);
+
+        txtTitulo = findViewById(R.id.txtTitulo);
 
         imgLivroCapa = findViewById(R.id.imgLivroCapa);
-        txtTitulo = findViewById(R.id.txtTitulo);
+
         txtDescricao = findViewById(R.id.txtDescricao);
+
+        txtTitulo.setText(livro.getTitulo());
+        txtDescricao.setText(livro.getDescricao());
+        imgLivroCapa.setImageBitmap(Utils.toBitmap(livro.getCapa()));
     }
 
     public void abrirGaleria(View view) {
@@ -86,11 +93,9 @@ public class CadastroActivity extends AppCompatActivity {
 
     }
 
-
-
     public void salvarLivro(View view) {
 
-        Livro livro;
+
         String titulo = txtTitulo.getText().toString();
         String descricao = txtDescricao.getText().toString();
 
@@ -99,25 +104,25 @@ public class CadastroActivity extends AppCompatActivity {
 
         }else{
 
+
             byte[] capa = Utils.toByteArray(livroCapa);
 
-            titulo = txtTitulo.getText().toString();
+            livro.setCapa(capa);
+            livro.setTitulo(titulo);
+            livro.setDescricao(descricao);
 
-            descricao = txtDescricao.getText().toString();
 
-            livro = new Livro(0, capa, titulo, descricao);
 
             //Inserir no banco de dados
-            myBooksDb.daoLivro().inserir(livro);
+            myBooksDb.daoLivro().atualizar(livro);
 
-            alert("Cadastrado!", "Livro cadastrado com sucesso!");
+            alert("Cadastrado", "Livro cadastrado com sucesso!");
             finish();
 
         }
 
-
-
     }
+
 
     public void alert(String titulo, String msg){
 

@@ -3,12 +3,14 @@ package br.com.senaijandira.mybooks.adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,6 +25,10 @@ public class LivroAdapter extends ArrayAdapter<Livro> {
 
     //Banco de dados
     private MyBooksDatabase myBooksDb;
+    Bitmap livroCapa;
+    ImageView imgLivroCapa;
+    EditText txtTitulo, txtDescricao;
+    Livro livro;
 
     public LivroAdapter(Context ctx, MyBooksDatabase myBooksDb) {
         super(ctx, 0, new ArrayList<Livro>());
@@ -55,6 +61,17 @@ public class LivroAdapter extends ArrayAdapter<Livro> {
     }
 
 
+
+    public void editarLivro(final Livro livro) {
+
+
+
+
+        myBooksDb.daoLivro().atualizar(livro);
+
+
+    }
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -83,6 +100,15 @@ public class LivroAdapter extends ArrayAdapter<Livro> {
             }
         });
 
+        ImageView imgEditar = v.findViewById(R.id.imgEditar);
+
+        imgEditar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editarLivro(livro);
+
+            }
+        });
 
         //Setando a imagem
         imgLivroCapa.setImageBitmap(
@@ -95,6 +121,15 @@ public class LivroAdapter extends ArrayAdapter<Livro> {
         txtLivroDescricao.setText(livro.getDescricao());
 
         return v;
+    }
+
+    public void alert(String titulo, String msg){
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+        alert.setTitle(titulo);
+        alert.setMessage(msg);
+
+        alert.create().show();
     }
 
 
