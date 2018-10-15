@@ -31,14 +31,16 @@ public class EditarActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ler_livro);
+        setContentView(R.layout.activity_editar);
 
-        //Criando a instancia do banco de dados
+        //INSTANCIANDO O BANCO
         myBooksDb = Room.databaseBuilder(getApplicationContext(),MyBooksDatabase.class, Utils.DATABASE_NAME).fallbackToDestructiveMigration().allowMainThreadQueries().build();
 
         int id = getIntent().getIntExtra("Livro",0);
-
+        System.out.print(id+": id retornado");
         livro =  myBooksDb.daoLivro().getLivro(id);
+
+        System.out.print(id+": id retornado");
 
         txtTitulo = findViewById(R.id.txtTitulo);
 
@@ -49,6 +51,7 @@ public class EditarActivity extends AppCompatActivity {
         txtTitulo.setText(livro.getTitulo());
         txtDescricao.setText(livro.getDescricao());
         imgLivroCapa.setImageBitmap(Utils.toBitmap(livro.getCapa()));
+        livroCapa = Utils.toBitmap(livro.getCapa());
     }
 
     public void abrirGaleria(View view) {
@@ -78,7 +81,7 @@ public class EditarActivity extends AppCompatActivity {
                         getContentResolver()
                                 .openInputStream(data.getData());
 
-                //Converteu para bitmap
+                //CONVERTENDO APRA BITMAP
                 livroCapa = BitmapFactory.decodeStream(input);
 
                 //Exibindo na tela
@@ -99,7 +102,7 @@ public class EditarActivity extends AppCompatActivity {
         String titulo = txtTitulo.getText().toString();
         String descricao = txtDescricao.getText().toString();
 
-        if(livroCapa == null || titulo.equals("") || descricao.equals("")){
+        if(titulo.equals("") || descricao.equals("")){
             alert("ERRO!", "Preencha todos os campos");
 
         }else{
@@ -116,7 +119,7 @@ public class EditarActivity extends AppCompatActivity {
             //Inserir no banco de dados
             myBooksDb.daoLivro().atualizar(livro);
 
-            alert("Cadastrado", "Livro cadastrado com sucesso!");
+            alert("Cadastrado", "Livro editado com sucesso!");
             finish();
 
         }

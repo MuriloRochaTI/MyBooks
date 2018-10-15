@@ -3,6 +3,7 @@ package br.com.senaijandira.mybooks.adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,6 +17,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import br.com.senaijandira.mybooks.EditarActivity;
+import br.com.senaijandira.mybooks.LerLivroActivity;
 import br.com.senaijandira.mybooks.R;
 import br.com.senaijandira.mybooks.Utils;
 import br.com.senaijandira.mybooks.db.MyBooksDatabase;
@@ -64,12 +67,19 @@ public class LivroAdapter extends ArrayAdapter<Livro> {
 
     public void editarLivro(final Livro livro) {
 
+        Intent intent = new Intent(getContext(), EditarActivity.class);
+        intent.putExtra("Livro", livro.getId());
+        getContext().startActivity(intent);
+        //myBooksDb.daoLivro().atualizar(livro);
 
 
+    }
+
+    public void lerLivro(final Livro livro){
 
         myBooksDb.daoLivro().atualizar(livro);
-
-
+        Intent intent = new Intent(getContext(), LerLivroActivity.class);
+        getContext().startActivity(intent);
     }
 
     @NonNull

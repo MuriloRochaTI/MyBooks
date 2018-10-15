@@ -18,6 +18,7 @@ public class Livro {
     private String descricao;
 
 
+
     public Livro(){}
 
     public Livro(int id, byte[] capa, String titulo, String descricao){
@@ -58,4 +59,6 @@ public class Livro {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
+
 }
