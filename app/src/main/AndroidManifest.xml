@@ -17,8 +17,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".CadastroActivity" />
-        <activity android:name=".LerLivroActivity"/>
+        <activity android:name=".LerLivroActivity" />
         <activity android:name=".EditarActivity" />
+        <activity android:name=".LivrosLidosActivity"></activity>
     </application>
 
 </manifest>

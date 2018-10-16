@@ -1,5 +1,8 @@
 package br.com.senaijandira.mybooks;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -31,5 +34,6 @@ public class Utils {
     public static Bitmap toBitmap(byte[] imagem){
         return BitmapFactory.decodeByteArray(imagem, 0, imagem.length);
     }
+
 
 }

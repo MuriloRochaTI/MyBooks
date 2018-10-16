@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -58,7 +60,21 @@ public class MainActivity extends AppCompatActivity {
         lstViewLivros.setAdapter(adapter);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_principal, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getTitle().equals("Ler")){
+            startActivity(new Intent(this, LerLivroActivity.class));
+        }else{
+            startActivity(new Intent(this, LivrosLidosActivity.class));
+        }
+        return true;
+    }
 
     @Override
     protected void onResume() {
@@ -81,16 +97,14 @@ public class MainActivity extends AppCompatActivity {
                 CadastroActivity.class));
     }
 
-    public void lerLivro(View v){
 
-        startActivity(new Intent(this, LerLivroActivity.class));
-    }
-
+    //STARTANDO A CLASS EDITARACTIVITY
     public void editarLivro(View v){
         startActivity(new Intent(this, EditarActivity.class));
 
     }
 
+    //ALERTS
     public void alert(String titulo, String msg){
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);

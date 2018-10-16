@@ -3,6 +3,7 @@ package br.com.senaijandira.mybooks;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.arch.persistence.room.Room;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -105,13 +106,13 @@ public class CadastroActivity extends AppCompatActivity {
 
             descricao = txtDescricao.getText().toString();
 
-            livro = new Livro(0, capa, titulo, descricao);
+            livro = new Livro(0, capa, titulo, descricao,0);
 
             //Inserir no banco de dados
             myBooksDb.daoLivro().inserir(livro);
 
             alert("Cadastrado!", "Livro cadastrado com sucesso!");
-            finish();
+
 
         }
 
@@ -124,7 +125,13 @@ public class CadastroActivity extends AppCompatActivity {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle(titulo);
         alert.setMessage(msg);
-
+        alert.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        alert.setCancelable(false);
         alert.create().show();
     }
 }

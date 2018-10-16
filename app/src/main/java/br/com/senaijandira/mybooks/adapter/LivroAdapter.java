@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -96,6 +97,8 @@ public class LivroAdapter extends ArrayAdapter<Livro> {
 
         final Livro livro = getItem(position);
 
+        final Button btnLerLivro = v.findViewById(R.id.lerLivro);
+        final Button btnLivrosLidos = v.findViewById(R.id.btnLivroLidos);
         ImageView imgLivroCapa = v.findViewById(R.id.imgLivroCapa);
         TextView txtLivroTitulo = v.findViewById(R.id.txtLivroTitulo);
         TextView txtLivroDescricao = v.findViewById(R.id.txtLivroDescricao);
@@ -116,9 +119,72 @@ public class LivroAdapter extends ArrayAdapter<Livro> {
             @Override
             public void onClick(View v) {
                 editarLivro(livro);
-
             }
         });
+
+        if(livro.getLerLivros() == 0){
+
+            btnLerLivro.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    livro.setLerLivros(1);
+                    myBooksDb.daoLivro().atualizar(livro);
+
+                }
+            });
+            btnLerLivro.setText("Ler");
+            btnLivrosLidos.setText("Lido");
+            btnLivrosLidos.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    livro.setLerLivros(2);
+                    myBooksDb.daoLivro().atualizar(livro);
+                }
+            });
+
+        }
+
+        if(livro.getLerLivros() == 1){
+
+            imgDeleteLivro.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    alert("Olivro Esta ok","Deseja retira-lo dos lendos");
+                }
+            });
+            btnLerLivro.setText("Remover dos Lendo");
+            btnLerLivro.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    livro.setLerLivros(0);
+                    myBooksDb.daoLivro().atualizar(livro);
+                }
+            });
+
+            btnLivrosLidos.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    livro.setLerLivros(2);
+                    myBooksDb.daoLivro().atualizar(livro);
+                }
+            });
+
+        }
+
+        if(livro.getLerLivros() == 2){
+            btnLerLivro.setEnabled(false);
+            btnLivrosLidos.setEnabled(true);
+            btnLivrosLidos.setText("Remove dos lidos");
+            btnLivrosLidos.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    livro.setLerLivros(0);
+                    myBooksDb.daoLivro().atualizar(livro);
+
+                }
+            });
+        }
+
 
         //Setando a imagem
         imgLivroCapa.setImageBitmap(
@@ -132,6 +198,7 @@ public class LivroAdapter extends ArrayAdapter<Livro> {
 
         return v;
     }
+
 
     public void alert(String titulo, String msg){
 

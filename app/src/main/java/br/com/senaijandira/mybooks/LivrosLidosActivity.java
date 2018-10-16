@@ -5,6 +5,8 @@ import android.arch.persistence.room.Room;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -13,10 +15,10 @@ import br.com.senaijandira.mybooks.adapter.LivroAdapter;
 import br.com.senaijandira.mybooks.db.MyBooksDatabase;
 import br.com.senaijandira.mybooks.model.Livro;
 
-public class LerLivroActivity extends AppCompatActivity {
+public class LivrosLidosActivity extends AppCompatActivity {
 
     //ListVew que carregará os livros
-    ListView lstViewLerLivros;
+    ListView lstViewLivrosLidosActivity;
     Bitmap livroCapa;
     ImageView imgLivroCapa;
     EditText txtTitulo, txtDescricao;
@@ -33,7 +35,7 @@ public class LerLivroActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ler_livro);
+        setContentView(R.layout.activity_livros_lidos);
 
         //Criando a instancia do banco de dados
         myBooksDb = Room.databaseBuilder(getApplicationContext(),
@@ -42,7 +44,7 @@ public class LerLivroActivity extends AppCompatActivity {
                 .allowMainThreadQueries()
                 .build();
 
-        lstViewLerLivros = findViewById(R.id.lstViewLerLivros);
+        lstViewLivrosLidosActivity = findViewById(R.id.lstViewLivrosLidosActivity);
         imgLivroCapa = findViewById(R.id.imgLivroCapa);
 
         txtDescricao = (EditText)findViewById(R.id.txtDescricao);
@@ -53,9 +55,8 @@ public class LerLivroActivity extends AppCompatActivity {
         //Criar o adapter
         adapter = new LivroAdapter(this, myBooksDb);
 
-        lstViewLerLivros.setAdapter(adapter);
+        lstViewLivrosLidosActivity.setAdapter(adapter);
     }
-
 
 
     @Override
@@ -65,9 +66,9 @@ public class LerLivroActivity extends AppCompatActivity {
 
 
         //Select no banco
-        livros = myBooksDb.daoLivro().selecionarTodos(1);
+        livros = myBooksDb.daoLivro().selecionarTodos(2);
 
-       // final Button btnLerLivro = findViewById(R.id.lerLivro);
+        // final Button btnLerLivro = findViewById(R.id.lerLivro);
 
         //Limpando a listView
         adapter.clear();

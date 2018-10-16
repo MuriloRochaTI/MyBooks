@@ -12,7 +12,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cadastro"
+        android:text="Cadastrar Livro"
         android:textSize="25sp"
         android:layout_gravity="center"
         android:textColor="#000"/>
